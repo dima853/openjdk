@@ -1,5 +1,7 @@
 package util;
 
+import java.util.Objects;
+
 public class Map<K, V> {
     private static final int DEFAULT_CAPACITY = 16;
     private static final int MAXIMUM_CAPACITY = 16;
@@ -58,7 +60,7 @@ public class Map<K, V> {
 
         for (Node<K,V> node = table[i]; node != null; node = node.next) {
             if (node.hash == hash &&
-                    (node.key == key || (key != null && key.equals(node.key)))) {
+                    (Objects.equals(key, node.key))) {
                 V oldValue = node.value;
                 node.value = value;
                 return oldValue;
@@ -85,7 +87,7 @@ public class Map<K, V> {
 
         while (node != null) {
             if (node.hash == hash &&
-                    (node.key == key || (key != null && key.equals(node.key))))
+                    (Objects.equals(key, node.key)))
                 return node;
             node = node.next;
         }
@@ -95,8 +97,7 @@ public class Map<K, V> {
     private void resize() {
         Node<K,V>[] oldTab = table;
         int oldCap = (oldTab == null) ? 0 : oldTab.length;
-        int newCap = oldCap << 1; // удваиваем размер
-
+        int newCap = oldCap << 1;
         threshold = (int)(newCap * loadFactor);
         Node<K,V>[] newTab = (Node<K,V>[])new Node[newCap];
         table = newTab;
@@ -109,7 +110,7 @@ public class Map<K, V> {
                     if (node.next == null) {
                         newTab[node.hash & (newCap - 1)] = node;
                     }
-                    else { // сохраняем порядок при рехешировании
+                    else { /
                         Node<K,V> loHead = null, loTail = null;
                         Node<K,V> hiHead = null, hiTail = null;
                         Node<K,V> next;
