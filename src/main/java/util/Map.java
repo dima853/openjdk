@@ -110,7 +110,7 @@ public class Map<K, V> {
                     if (node.next == null) {
                         newTab[node.hash & (newCap - 1)] = node;
                     }
-                    else { /
+                    else {
                         Node<K,V> loHead = null, loTail = null;
                         Node<K,V> hiHead = null, hiTail = null;
                         Node<K,V> next;
