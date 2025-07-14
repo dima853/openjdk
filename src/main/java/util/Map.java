@@ -7,7 +7,7 @@ public class Map<K, V> {
     private static final int MAXIMUM_CAPACITY = 16;
     private static final float DEFAULT_LOAD_FACTOR = 0.75f;
 
-    private Node<K, V>[] table;
+    private Node<K, V>[] table; // the array of buckets
     private int size;
     private float loadFactor;
     private int threshold;
